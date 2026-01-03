@@ -1,7 +1,9 @@
 import 'dart:vmservice_io';
 
+import 'package:app1/models/enseignant.dart';
 import 'package:app1/models/etudiant.dart';
-void main(){
+import 'package:app1/services/api_services.dart';
+Future<void> main() async {
   print("Salut le monde !");
 
   // Etudiant e= Etudiant("Safia", "Sana", 1018, 17.05);
@@ -104,6 +106,17 @@ void main(){
     print(Etudiant.fromMap(e).toString());
   }
 
+  final result = await ApiServices.getData("https://jsonplaceholder.typicode.com/users");
+   List <Map<String,dynamic>> value=List <Map<String,dynamic>>.from(result);
+   print("|-" * 100);
+   for(var e in value){
+    print("${e['name']} ${e['username']} ${e['email']}");
+   }
+
+   Enseignant en= Enseignant(matiere: "IA",prenom: "Moustapha",nom: "Der",matricule:3900);
+
+   print("|-" * 100);
+   print("${en.matricule} ${en.nom} ${en.prenom} ${en.matiere}");
 }
 
 
